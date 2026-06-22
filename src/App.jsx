@@ -27,15 +27,15 @@ function App() {
   const filteredProducts = useMemo(() => {
     const cleanSearchText = searchText.trim().toLowerCase();
     const visibleProducts = products.filter((product) => {
-      const matchesCategory = activeCategory === "All" || product.category === activeCategory;
-      const searchableText = [product.name, product.brand, product.category, product.tag].join(" ").toLowerCase();
+      const matchesCategory = activeCategory === "All" || product.department === activeCategory;
+      const searchableText = [product.title, product.brand, product.department, product.badge].join(" ").toLowerCase();
       return matchesCategory && searchableText.includes(cleanSearchText);
     });
 
     return [...visibleProducts].sort((firstProduct, secondProduct) => {
-      if (sortBy === "low") return firstProduct.price - secondProduct.price;
-      if (sortBy === "high") return secondProduct.price - firstProduct.price;
-      if (sortBy === "rating") return secondProduct.rating - firstProduct.rating;
+      if (sortBy === "low") return firstProduct.pricing.current - secondProduct.pricing.current;
+      if (sortBy === "high") return secondProduct.pricing.current - firstProduct.pricing.current;
+      if (sortBy === "rating") return secondProduct.rating.score - firstProduct.rating.score;
       if (sortBy === "discount") return getDiscount(secondProduct) - getDiscount(firstProduct);
       return firstProduct.id - secondProduct.id;
     });

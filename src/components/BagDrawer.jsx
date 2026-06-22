@@ -40,11 +40,11 @@ function BagDrawer({ bagProducts, onBagClose, onBagToggle }) {
 
           {bagProducts.map((product) => (
             <article className="bagItem" key={product.id}>
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.title} />
               <div>
                 <strong>{product.brand}</strong>
-                <span>{product.name}</span>
-                <p>{formatPrice(product.price)}</p>
+                <span>{product.title}</span>
+                <p>{formatPrice(product.pricing.current)}</p>
                 <small><Truck size={14} aria-hidden="true" /> {product.delivery}</small>
               </div>
               <button type="button" onClick={() => onBagToggle(product.id)}>Remove</button>

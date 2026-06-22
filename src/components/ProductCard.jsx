@@ -7,7 +7,7 @@ function ProductCard({ isInBag, isWishlisted, onBagToggle, onWishlistToggle, pro
   return (
     <article className="productCard">
       <div className="productImage">
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.title} />
         <button
           type="button"
           className={isWishlisted ? "wishlistButton saved" : "wishlistButton"}
@@ -17,18 +17,18 @@ function ProductCard({ isInBag, isWishlisted, onBagToggle, onWishlistToggle, pro
           <Heart size={16} fill={isWishlisted ? "currentColor" : "none"} aria-hidden="true" />
           {isWishlisted ? "Saved" : "Save"}
         </button>
-        <span>{product.tag}</span>
+        <span>{product.badge}</span>
       </div>
 
       <div className="productInfo">
-        <div className="rating"><Star size={13} fill="currentColor" aria-hidden="true" /> {product.rating} | {product.reviews}</div>
+        <div className="rating"><Star size={13} fill="currentColor" aria-hidden="true" /> {product.rating.score} | {product.rating.count}</div>
         <strong>{product.brand}</strong>
-        <p>{product.name}</p>
+        <p>{product.title}</p>
         <span className="deliveryText">{product.delivery}</span>
 
         <div className="priceRow">
-          <span>{formatPrice(product.price)}</span>
-          <del>{formatPrice(product.originalPrice)}</del>
+          <span>{formatPrice(product.pricing.current)}</span>
+          <del>{formatPrice(product.pricing.mrp)}</del>
           <small>{discount}% off</small>
         </div>
 

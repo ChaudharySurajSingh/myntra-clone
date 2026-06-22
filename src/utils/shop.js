@@ -3,7 +3,7 @@ export function formatPrice(amount) {
 }
 
 export function getDiscount(product) {
-  return Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+  return Math.round(((product.pricing.mrp - product.pricing.current) / product.pricing.mrp) * 100);
 }
 
 export function getBagProducts(productIds, products) {
@@ -11,8 +11,8 @@ export function getBagProducts(productIds, products) {
 }
 
 export function getBagSummary(products) {
-  const totalMrp = products.reduce((total, product) => total + product.originalPrice, 0);
-  const itemTotal = products.reduce((total, product) => total + product.price, 0);
+  const totalMrp = products.reduce((total, product) => total + product.pricing.mrp, 0);
+  const itemTotal = products.reduce((total, product) => total + product.pricing.current, 0);
   const discount = totalMrp - itemTotal;
   const platformFee = products.length ? 20 : 0;
   const totalAmount = itemTotal + platformFee;

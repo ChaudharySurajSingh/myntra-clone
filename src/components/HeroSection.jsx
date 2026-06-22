@@ -1,17 +1,18 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function HeroSection({ couponBanner, slides }) {
   const [activeSlide, setActiveSlide] = useState(0);
-  const currentSlide = slides[activeSlide];
-
-  const showPreviousSlide = () => {
-    setActiveSlide((currentIndex) => (currentIndex === 0 ? slides.length - 1 : currentIndex - 1));
-  };
 
   const showNextSlide = () => {
     setActiveSlide((currentIndex) => (currentIndex === slides.length - 1 ? 0 : currentIndex + 1));
   };
+
+  useEffect(() => {
+    if (slides.length <= 1) return undefined;
+
+    const slideTimer = window.setInterval(showNextSlide, 3500);
+    return () => window.clearInterval(slideTimer);
+  }, [slides.length]);
 
   return (
     <section className="myntraHero" id="home">
@@ -20,20 +21,19 @@ function HeroSection({ couponBanner, slides }) {
       </div>
 
       <div className="heroCarousel">
-        <button className="heroArrow left" type="button" onClick={showPreviousSlide} aria-label="Previous banner">
-          <ChevronLeft size={24} />
-        </button>
-        <img src={currentSlide.image} alt={currentSlide.alt} />
-        <button className="heroArrow right" type="button" onClick={showNextSlide} aria-label="Next banner">
-          <ChevronRight size={24} />
-        </button>
+        {slides.map((slide, index) => (
+          <img
+            key={slide.id}
+            className={activeSlide === index ? "heroSlide active" : "heroSlide"}
+            src={slide.image}
+            alt={slide.alt}
+          />
+        ))}
       </div>
 
-      <div className="carouselDots" aria-label="Homepage banner selector">
+      <div className="carouselDots" aria-label="Homepage banner indicator">
         {slides.map((slide, index) => (
-          <button key={slide.id} className={activeSlide === index ? "active" : ""} type="button" onClick={() => setActiveSlide(index)}>
-            {index + 1}
-          </button>
+          <span key={slide.id} className={activeSlide === index ? "active" : ""} />
         ))}
       </div>
 

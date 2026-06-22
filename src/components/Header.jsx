@@ -1,4 +1,5 @@
 import { Heart, Search, ShoppingBag, UserRound } from "lucide-react";
+import { siteImages } from "../data/images.js";
 
 const navigationMenus = {
   Men: [
@@ -54,7 +55,7 @@ function Header({
   return (
     <header className="topHeader">
       <a className="brandLogo" href="#home" aria-label="Myntra clone home" onClick={() => onCategoryChange("All")}>
-        <img src="/images/myntra-logo.webp" alt="Myntra logo" />
+        <img src={siteImages.logo} alt="Myntra logo" />
       </a>
 
       <nav className="mainNav" aria-label="Main navigation">
